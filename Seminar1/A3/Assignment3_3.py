@@ -1,5 +1,5 @@
 import math
-import numpy as np
+
 
 class Assignment3_3:
     def __init__(self):
@@ -23,6 +23,8 @@ class Assignment3_3:
     # key is a 2 x 2 matrix => split into groups of 2
     def encryption(self, c11: int, c12: int, c21: int, c22: int, plaintext: str) -> str:
         key = [[c11, c12], [c21, c22]]
+
+        # determinant
         det_key = c11 * c22 - c12 * c21
 
         # 1. check if det(key) != 0
@@ -41,6 +43,11 @@ class Assignment3_3:
         if len(plaintext) % 2 == 1:
             plaintext += 'X'
         
+        a = key[0][0]
+        b = key[0][1]
+        c = key[1][0]
+        d = key[1][1]
+
         for index in range(0, len(plaintext), 2):
             ch1 = plaintext[index]
             ch2 = plaintext[index + 1]
@@ -50,15 +57,12 @@ class Assignment3_3:
             ch2_numerical = self.english_alphabet_map[ch2]
 
             # numerical representation of encoded characters
-            # encoded numerical is an array of length 2
-            encoded_numerical = np.matmul((ch1_numerical, ch2_numerical), key) % 26
+            encoded_ch1 = (ch1_numerical * a + ch2_numerical * c) % 26
+            encoded_ch2 = (ch1_numerical * b + ch2_numerical * d) % 26
 
-            # transform encoded numerical into encoded (i.e. as string)
-            ch1_encoded_numerical = encoded_numerical[0]
-            ch2_encoded_numerical = encoded_numerical[1]
-
-            ch1_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == ch1_encoded_numerical]
-            ch2_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == ch2_encoded_numerical]
+            # convert back to letters
+            ch1_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == encoded_ch1]
+            ch2_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == encoded_ch2]
 
             encoded_group = ch1_encoded_character + ch2_encoded_character
 

@@ -1,5 +1,3 @@
-
-
 class Assignment1:
 
     def __init__(self):    

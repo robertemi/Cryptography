@@ -1,4 +1,3 @@
-import numpy as np
 
 class Assignment3_2:
     def __init__(self):    
@@ -28,10 +27,15 @@ class Assignment3_2:
         # modular inverse of determinant modulo 26
         det_inv = pow(det, -1, 26)
 
-        adj = np.array([[d, -b],
-                        [-c, a]], dtype=int)
+        adj = [[d, -b],
+                [-c, a]]
 
-        return (det_inv * adj) % 26
+        inverse_key = [
+            [(det_inv * adj[0][0]) % 26, (det_inv * adj[0][1]) % 26],
+            [(det_inv * adj[1][0]) % 26, (det_inv * adj[1][1]) % 26]
+        ]
+
+        return inverse_key
     
     
     def decryption(self, ciphertext: str = 'xiyj', key = [[11, 8], [3, 7]]) -> str:
@@ -55,12 +59,12 @@ class Assignment3_2:
             inverse_key = self.inverse_mod_26(key)
 
             # numerical representation of decoded characters 
-            decoded_numerical = np.matmul((encoded_ch1_numerical, encoded_ch2_numerical), inverse_key) % 26
+            a, b = inverse_key[0]
+            c, d = inverse_key[1]
 
-            # transform decoded numerical into decoded (i.e. as string)
-            # cast to int to avoid possible errors
-            decoded_ch1_numerical = int(decoded_numerical[0])
-            decoded_ch2_numerical = int(decoded_numerical[1])
+            decoded_ch1_numerical = (encoded_ch1_numerical * a + encoded_ch2_numerical * c) % 26
+            decoded_ch2_numerical = (encoded_ch1_numerical * b + encoded_ch2_numerical * d) % 26
+
 
             ch1_decoded_character, = [k for k, v in self.english_alphabet_map.items() if v == decoded_ch1_numerical]
             ch2_decoded_character, = [k for k, v in self.english_alphabet_map.items() if v == decoded_ch2_numerical]

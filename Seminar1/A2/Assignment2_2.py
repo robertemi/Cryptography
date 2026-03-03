@@ -1,10 +1,9 @@
 import math
 
 
-
 class Assignment2_2:
     def __init__(self):
-        # used for computing a prime
+        # used for computing a prime (a')
         # for the english alphabet m = 26
         self.m = 26
 

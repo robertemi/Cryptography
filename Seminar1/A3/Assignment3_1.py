@@ -1,4 +1,3 @@
-import numpy as np
 
 
 class Assignment3_1:
@@ -44,14 +43,17 @@ class Assignment3_1:
 
             # numerical representation of encoded characters
             # encoded numerical is an array of length 2
-            encoded_numerical = np.matmul((ch1_numerical, ch2_numerical), key) % 26
+            a = key[0][0]
+            b = key[0][1]
+            c = key[1][0]
+            d = key[1][1]
 
-            # transform encoded numerical into encoded (i.e. as string)
-            ch1_encoded_numerical = encoded_numerical[0]
-            ch2_encoded_numerical = encoded_numerical[1]
+            encoded_ch1 = (ch1_numerical * a + ch2_numerical * c) % 26
+            encoded_ch2 = (ch1_numerical * b + ch2_numerical * d) % 26
 
-            ch1_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == ch1_encoded_numerical]
-            ch2_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == ch2_encoded_numerical]
+
+            ch1_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == encoded_ch1]
+            ch2_encoded_character, = [k for k, v in self.english_alphabet_map.items() if v == encoded_ch2]
 
             encoded_group = ch1_encoded_character + ch2_encoded_character
 
