@@ -38,6 +38,8 @@ class Assignment2_2:
         
         decoded: str = ''
         for character in ciphertext:
+            if character not in self.english_alphabet_map:
+                continue
             # numerical representation of the character
             encoded_numerical = self.english_alphabet_map[character]
 

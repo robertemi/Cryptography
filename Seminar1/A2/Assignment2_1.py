@@ -27,6 +27,8 @@ class Assignment2_1:
         
         encoded: str = ''
         for character in plaintext:
+            if character not in self.english_alphabet_map:
+                continue
             # numerical representation of the character
             character_numerical = self.english_alphabet_map[character]
 
