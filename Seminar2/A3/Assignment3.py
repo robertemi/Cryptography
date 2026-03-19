@@ -55,7 +55,7 @@ def main():
     solver = Assignment3(message)
     binaries, voltages = solver.encode_5bit()
 
-    print("\nBinary representation (5-bit):")
+    print("\nBinary representation (5-bit) of codebyjava:")
     print(" ".join(binaries))
 
     print("\nAnalog signal values (Volts):")
